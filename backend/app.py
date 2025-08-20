@@ -17,6 +17,14 @@ def create_app():
     def get_events():
         events = Event.query.all()
         return jsonify([e.to_dict() for e in events])
+    
+    @app.route('/events/<int:event_id>', methods=['GET'])
+    def get_event_by_id(event_id):
+        event = Event.query.get(event_id)
+        if event is None:
+            return jsonify({'error': 'Event not found'}), 404
+        return jsonify(event.to_dict())
+    
 
     @app.route('/events', methods=['POST'])
     def create_event():

@@ -8,7 +8,7 @@ class Event(db.Model):
     title = db.Column(db.String(120), nullable=False)
     date = db.Column(db.Date, nullable=False)  # Changed to db.Date
     location = db.Column(db.String(120), nullable=False)
-    created_at = db.Column(db.Date, default=date.today)   # Pass function, not result
+    created_at = db.Column(db.Date, default=lambda: date.today())   # Pass function, not result
 
     def to_dict(self):
         return {
